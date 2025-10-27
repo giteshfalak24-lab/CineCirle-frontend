@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidden Gems</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      background: linear-gradient(to right, #2c2c2c, #1a1a1a, #000000);
+
+}
+    .sidebar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background-color: transparent;
+      color: white;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 40px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .site-title {
+      font-size: 24px;
+        color: white;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dashboard {
+      background-color: #1e88e5; /* Blue */
+        color: white;
+    }
+
+    .profile {
+      background-color: #ab47bc; /* Magenta */
+      color: white;
+    }
+
+    .create {
+      background-color: #43a047; /* Green */
+      color: white;
+    }
+
+    .logout {
+  background-color: #ff2e2e;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(255, 46, 46, 0.6);
+  transition: all 0.3s ease-in-out;
+}
+
+.logout:hover {
+  background-color: #ff4b2b;
+  box-shadow: 0 0 15px rgba(255, 75, 43, 0.9), 0 0 30px rgba(255, 75, 43, 0.5);
+  transform: translateY(-2px);
+}
+
+    /* Optional: Responsive tweaks */
+    @media (max-width: 768px) {
+      .sidebar-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-buttons {
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-container">
+    <a href="Dashboard.html" target="_blank">
+    <div class="logo-section">
+      <img src="Cinecircle_Logo.png" alt="CineCircle Logo" class="logo">
+      <span class="site-title">CineCircle</span>  
+    </div>
+    </a>
+
+    <div class="nav-buttons">
+      <a href="#dashboard" class="btn dashboard"><i class="fa fa-fw fa-chart-bar"></i> Dashboard</a>
+          <a href="profile.html" class="btn profile">
+            <i class="fa fa-fw fa-user"></i> Profile
+          </a>
+      <a href="#createpost" class="btn create"><i class="fa fa-fw fa-plus"></i> Create Post</a>
+      <a href="#logout" class="btn logout"><i class="fa fa-fw fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </div>
+<script>
+  const user = localStorage.getItem("loggedInUser");
+  if (user) {
+    // You can show username anywhere in your dashboard
+    alert("Welcome, " + user + "!"); // You can replace this with something on the page
+  } else {
+    // If user not logged in, send back to login page
+    window.location.href = "login.html";
+  }
+</script>
+
+</body>
+</html>

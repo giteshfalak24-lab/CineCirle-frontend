@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cine Circle | Login</title>
+
+  <style> 
+    /* ===== Cine Circle Login Page ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('background.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: -1;
+    }
+
+    /* Container */
+    .register-cont {
+      background: rgb(38, 37, 37);
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 0 30px rgba(245,166,35,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px;
+      flex-direction: column;
+    }
+
+    .login-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(182, 136, 63, 0.89);
+    }
+
+    /* Logo */
+    .logo {
+      width: 90px;
+      height: 100px;
+      background: url('Cinecircle.png') no-repeat center;
+      background-size: contain;
+      margin: 0 auto 20px;
+    }
+
+    /* Headings */
+    h2 {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #f5a623;
+    }
+
+    h2 span {
+      color: #e50914;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    /* Input Fields */
+   input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #f5a623;
+      background: transparent;
+      color: #fff;
+      outline: none;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #e50914;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    /* Button */
+    #registerBtn {
+  background-color: #ff2e2e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 46, 46, 0.6);
+}
+
+#registerBtn:hover {
+  background-color: #ff4b2b;
+  box-shadow: 0 0 15px rgba(255, 75, 43, 0.9), 0 0 25px rgba(255, 75, 43, 0.5);
+  transform: scale(1.05);
+}
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .login-container {
+        width: 90%;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <div class="register-cont">
+    <div class="logo"></div>
+    <h2>Welcome Back to <span>Cine Circle</span></h2>
+    <p class="tagline">Where you can share your taste with everyone..🎬</p>
+
+  <form id="registerForm">
+  <input type="text" id="email" placeholder="Email Address" required />
+  <input type="text" id="usernameInput" placeholder="Username" required />
+ <input type="password" id="password" placeholder="Password" required />
+<input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+
+  <button type="submit" id="signupBtn">Sign-Up</button>
+</form>
+  </div>
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById("usernameInput").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const confirmPassword = document.getElementById("confirmPassword").value.trim();
+  const profilePicInput = document.getElementById("profilePicInput"); // Add this input in your form
+
+  if (!email || !username || !password || !confirmPassword) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  // Handle optional profile picture upload
+  if (profilePicInput && profilePicInput.files.length > 0) {
+    const file = profilePicInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function() {
+      // Save all user info (including picture)
+      localStorage.setItem("username", username);
+      localStorage.setItem("email", email);
+      localStorage.setItem("userProfilePic", reader.result);
+      localStorage.setItem("isLoggedIn", true);
+
+      window.location.href = "dashboard.html"; // redirect after register
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    // Save without picture
+    localStorage.setItem("username", username);
+    localStorage.setItem("email", email);
+    localStorage.removeItem("userProfilePic");
+    localStorage.setItem("isLoggedIn", true);
+
+    window.location.href = "dashboard.html";
+  }
+});
+</script>
+
+</body>
+
+</html>

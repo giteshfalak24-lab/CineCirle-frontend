@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cine Circle - Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ---------- General Page ---------- */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Profile Container ---------- */
+    .profile-container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px 50px;
+      width: 80%;
+      max-width: 900px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .profile-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    /* ---------- Header ---------- */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 25px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ---------- Profile Picture ---------- */
+    .profile-pic-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+    }
+
+    #profilePic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid #2196f3;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    #profilePic:hover {
+      transform: scale(1.05);
+    }
+
+    /* Overlay username on picture */
+    .username-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      text-align: center;
+      font-size: 0.9rem;
+      border-radius: 0 0 50% 50%;
+      padding: 6px 0;
+      font-weight: 500;
+    }
+
+    /* Camera icon for changing picture */
+    .change-pic-icon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: rgba(33, 150, 243, 0.8);
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .change-pic-icon:hover {
+      background: rgba(33, 150, 243, 1);
+      transform: scale(1.1);
+    }
+
+    .change-pic-icon i {
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- Info ---------- */
+    .profile-header-text h2 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin: 0;
+    }
+
+    .profile-header-text p {
+      color: #cfd8dc;
+      margin: 5px 0 0;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- Profile Details ---------- */
+    .profile-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .info-box:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .info-box h4 {
+      color: #90caf9;
+      margin-bottom: 8px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #fff;
+    }
+
+    /* ---------- Posts Section ---------- */
+    .user-posts {
+      margin-top: 40px;
+    }
+
+    .user-posts h3 {
+      color: #64b5f6;
+      margin-bottom: 15px;
+    }
+
+    #postsList p {
+      color: #b0bec5;
+    }
+
+    /* ---------- Logout Button ---------- */
+    .logout-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      color: #fff;
+      padding: 12px 35px;
+      border: none;
+      border-radius: 25px;
+      margin-top: 35px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+    }
+
+    .logout-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 82, 82, 0.5);
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .profile-container {
+        padding: 25px;
+      }
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-pic-container">
+        <img id="profilePic" src="https://via.placeholder.com/140" alt="Profile Picture">
+        <div class="username-overlay" id="picUsername">User</div>
+        <div class="change-pic-icon" id="changePicBtn" title="Change Picture">
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+
+      <div class="profile-header-text">
+        <h2 id="username">Welcome, User!</h2>
+        <p id="useremail">user@example.com</p>
+      </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="profile-details">
+      <div class="info-box">
+        <h4>Favorite Movie Genres</h4>
+        <p id="movieGenres">Action, Drama, Sci-Fi</p>
+      </div>
+      <div class="info-box">
+        <h4>Favorite Music Genres</h4>
+        <p id="musicGenres">Rock, Jazz, Lo-fi</p>
+      </div>
+    </div>
+
+    <!-- User Posts -->
+    <div class="user-posts">
+      <h3>Posts Created by You</h3>
+      <div id="postsList">
+        <p>No posts yet...</p>
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Get stored data
+    const username = localStorage.getItem("username") || "User";
+    const email = localStorage.getItem("email") || "user@example.com";
+    const profilePic = localStorage.getItem("userProfilePic") || "https://via.placeholder.com/140";
+
+    // Display data
+    document.getElementById("username").textContent = "Welcome, " + username + "!";
+    document.getElementById("picUsername").textContent = username;
+    document.getElementById("useremail").textContent = email;
+    document.getElementById("profilePic").src = profilePic;
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "index1.html";
+    });
+
+    // Change profile picture
+    const changeBtn = document.getElementById("changePicBtn");
+    const uploadInput = document.createElement("input");
+    uploadInput.type = "file";
+    uploadInput.accept = "image/*";
+    uploadInput.style.display = "none";
+    document.body.appendChild(uploadInput);
+
+    changeBtn.addEventListener("click", () => {
+      uploadInput.click();
+    });
+
+    uploadInput.addEventListener("change", () => {
+      const file = uploadInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const newPic = reader.result;
+          document.getElementById("profilePic").src = newPic;
+          localStorage.setItem("userProfilePic", newPic);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
